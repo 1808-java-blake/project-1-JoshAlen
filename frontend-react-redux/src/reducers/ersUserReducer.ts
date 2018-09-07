@@ -14,7 +14,23 @@ export const ersUserReducer = (state = initialState, action: any) => {
           ...state,
           users: action.payload
       }
+    case ersUserTypes.GET_CURRENT_USER:
+      return{
+          ...state,
+          currentReimb: action.payload.Reimbursement,
+          currentUser: action.payload
+      }
+    case ersUserTypes.UPDATE_REIMB_STATUS:
+      const oldReimb = state.currentReimb[action.payload.i];
+      oldReimb.reimbStatusId = action.payload.newStatusId;
+      return{
+          ...state,
+          currentReimb: state.currentReimb.slice(0, action.payload.i)
+          .concat([oldReimb])
+          .concat(state.currentReimb.slice(action.payload.i + 1))
+      }
     default:
-    return state;
+      return state;
   }
 }
+
