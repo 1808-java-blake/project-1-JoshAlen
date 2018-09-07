@@ -19,21 +19,15 @@ const AppNav: React.StatelessComponent<any> = (props) => {
         <div className="collapse navbar-collapse" id="navbarsExample04">
           <ul className="navbar-nav ml-auto margin-nav">
             <li className="nav-item active">
-              <Link to="/home" className="unset-anchor nav-link">Home</Link>
+              <Link to="/" className="unset-anchor nav-link">View Expense Reimbursements</Link>
             </li>
             <li className="nav-item active">
-              <Link to="/sign-in" className="unset-anchor nav-link">Sign In</Link>
+              <Link to="/sign-in" className="unset-anchor nav-link">Logout</Link>
             </li>
-            <li className="nav-item active">
+            {/* <li className="nav-item active">
               <Link to="/first" className="unset-anchor nav-link">First</Link>
-            </li>
-            <li className="nav-item active">
-              <Link to="/second" className="unset-anchor nav-link">Second</Link>
-            </li>
-            <li className="nav-item active">
-              <Link to="/clicker" className="unset-anchor nav-link">Clicker</Link>
-            </li>
-            <li className="nav-item active dropdown">
+            </li> */}
+            {/* <li className="nav-item active dropdown">
               <a className="nav-link dropdown-toggle pointer" id="examples-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Examples</a>
               <div className="dropdown-menu" aria-labelledby="examples-dropdown">
                 <div className="dropdown-item"><Link to="/movies" className="unset-anchor nav-link active">Movies</Link></div>
@@ -42,11 +36,7 @@ const AppNav: React.StatelessComponent<any> = (props) => {
                 <div className="dropdown-item"><Link to="/chuck-norris" className="unset-anchor nav-link active">Chuck Norris Jokes</Link></div>
                 <div className="dropdown-item"><Link to="/pokemon" className="unset-anchor nav-link active">Pokemon</Link></div>
               </div>
-            </li>
-            <li className="nav-item active">
-              <Link to="/nested" className="unset-anchor nav-link">Nested</Link>
-            </li>
-            {props.clicks}
+            </li> */}
           </ul>
         </div>
       </nav>

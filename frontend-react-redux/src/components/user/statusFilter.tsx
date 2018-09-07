@@ -14,6 +14,11 @@ export class StatusFilter extends React.Component<any, any>{
 
     public setActiveClass = (e: any) => {
         const temp = e.target.className.includes("active");
+        this.setState({filter: 1})
+        console.log(this.state);
+        console.log("above is the state");
+        console.log(this.props);
+        console.log("above is the props");
         !temp ? this.setState({activeTabClassName: e.target.id}) : console.log("same tab");
     }
 

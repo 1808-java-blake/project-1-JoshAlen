@@ -4,6 +4,7 @@ import { signInReducer } from "./sign-in.reducer";
 import { chuckNorrisReducer } from "./chuck-norris.reducer";
 import { PokemonSprite } from "../model/PokemonSprite";
 import { pokemonReducer } from "./pokemon-reducer";
+import { ersUserReducer } from "./ersUserReducer";
 
 export interface IChuckNorrisState {
   buyJokeEnabled: boolean,
@@ -42,4 +43,5 @@ export const state = combineReducers<IState>({
   clicker: clickerReducer,
   pokemon: pokemonReducer,
   signIn: signInReducer,
+  user: ersUserReducer
 })

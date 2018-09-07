@@ -8,7 +8,7 @@ export default class User extends React.Component<any, any> {
             this.state = {
                 currentReimb: [],
                 currentUser: {},
-                users: [],
+                users: []
             }
         }
 
@@ -22,6 +22,10 @@ export default class User extends React.Component<any, any> {
             .catch(err => {
                 console.log(err);
             }) 
+        }
+
+        public getFilterBy = (filter: number) => {
+            this.setState({filter});
         }
 
         public getViewBtnClickIndex = (e: any) => {
@@ -133,7 +137,7 @@ export default class User extends React.Component<any, any> {
         
         public render() {
             return ( <div className="container-fluid">
-                        <StatusFilter currentUser={this.state.currentUser}/>
+                        <StatusFilter filterBy={this.getFilterBy} />
                         <div className="row">
                             <table className="table table-striped custab col-md-5 custyle m-2">
                             <thead>

@@ -58,7 +58,7 @@ class SignInComponent extends React.Component<IProps, {}> {
     const { errorMessage, credentials } = this.props;
 
     return(
-      <section className="login-block">
+      <section className="login-block m-0">
         <div className="container">
           <div className="row">
             <div className="col-md-4 login-sec">

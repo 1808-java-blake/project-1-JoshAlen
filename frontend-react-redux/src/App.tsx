@@ -16,6 +16,7 @@ import { NestedComponent } from './components/nested/nested.component';
 import { Provider } from 'react-redux';
 import { store } from './Store';
 import User from './components/user';
+import ErsUser from './components/ersUser';
 
 class App extends React.Component {
   public render() {
@@ -36,6 +37,7 @@ class App extends React.Component {
                 <Route path="/pokemon" component={PokemonComponent} />
                 <Route path="/movies" component={MoviesComponent} />
                 <Route path="/nested" component={NestedComponent} />
+                <Route component={ErsUser} />
                 <Route component={SignInComponent} />
                 <Route component={User} />
               </Switch>
