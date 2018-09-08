@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { FaCheck, FaTimes } from 'react-icons/fa';
 import { connect } from 'react-redux';
-import { getUsersAndReimbs, getCurrentUserAndReimb, updateReimbStatus } from '../actions/ersUserActions';
+import { createReimb,getUsersAndReimbs, getCurrentUserAndReimb, updateReimbStatus } from '../actions/ersUserActions';
 import { StatusFilter } from './statusFilter';
+import { toCurrency, formatTime } from '../utils';
 
 class ErsUser extends React.Component<any, any> {
 
@@ -38,8 +39,8 @@ class ErsUser extends React.Component<any, any> {
                     this.props.currentReimb.map((r: any, index: number) => {
                     return <tr key={index}>
                                 <td>{r.reimbId}</td>
-                                <td>{r.reimbAmount}</td>
-                                <td>{r.reimbSubmitted}</td>
+                                <td>${ toCurrency(r.reimbAmount) }</td>
+                                <td>{ formatTime(r.reimbSubmitted) }</td>
                                 <td>{r.reimbDescription}</td>
                                 <td>{this.printStatusBadge(r.reimbStatusId)}</td>
                                 <td className="text-center">
@@ -123,10 +124,9 @@ class ErsUser extends React.Component<any, any> {
 }
 
 const mapStateToPros = (state: any) => ({
-
     currentReimb: state.user.currentReimb,
     currentUser: state.user.currentUser,
     users: state.user.users
 });
 
-export default connect(mapStateToPros, { getUsersAndReimbs, getCurrentUserAndReimb, updateReimbStatus })(ErsUser);
+export default connect(mapStateToPros, { createReimb,getUsersAndReimbs, getCurrentUserAndReimb, updateReimbStatus })(ErsUser);

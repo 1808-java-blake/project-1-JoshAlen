@@ -37,3 +37,22 @@ export const updateReimbStatus = (user: any, i: number, newStatusId: number) => 
         console.log(err);
       });
 }
+
+export const createReimb = (r: any) => (dispatch: any) => {
+    fetch('http://localhost:9001/reimbursements', {
+        body: JSON.stringify(r),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: 'POST'
+      })
+      .then(resp => resp.json())
+      .then(reimb => dispatch({
+          payload: reimb,
+          type: ersUserTypes.CREATE_REIMB
+      }))
+      .catch(err => {
+        console.log(err);
+      });
+}

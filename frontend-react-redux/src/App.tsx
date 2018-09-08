@@ -7,6 +7,7 @@ import SignInComponent from './components/sign-in/sign-in.component';
 import { Provider } from 'react-redux';
 import { store } from './Store';
 import ErsUser from './components/ersUser';
+import { NewReimb } from './components/newReimb';
 
 class App extends React.Component {
   public render() {
@@ -18,6 +19,7 @@ class App extends React.Component {
             <div id="main-content-container">
               <Switch>
                 <Route path="/sign-in" component={SignInComponent} />
+                <Route path="/reimbursements" component={NewReimb} />
                 <Route path="/expensereimbursements" component={ErsUser} />
                 <Route component={SignInComponent} />
               </Switch>
