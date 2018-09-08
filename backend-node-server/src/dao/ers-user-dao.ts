@@ -109,20 +109,3 @@ export async function findByUsernameAndPassword(username: string, password: stri
      client.release();
    }
  }
-
-// /**
-//  * Add a movie to a users list
-//  * @param reimbursementId 
-//  * @param userId 
-//  */
-// export async function addMovieToUser(movieId: number, userId: number): Promise<any> {
-//   const client = await connectionPool.connect();
-//   try {
-//     const resp = await client.query(
-//       `INSERT INTO movies.users_movies 
-//         (user_id, movie_id)
-//         VALUES ($1, $2)`, [userId, movieId]);
-//   } finally {
-//     client.release();
-//   }
-// }

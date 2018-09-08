@@ -38,9 +38,9 @@ reimbursementRouter.get('/:reimb_id', async (req, resp) => {
   }
 });
 
-// /**
-//  * Create Reimbursement
-//  */
+/**
+ * Create Reimbursement
+ */
 reimbursementRouter.post('', [
 //   authMiddleware('admin'),
   async (req, resp) => {
@@ -53,3 +53,18 @@ reimbursementRouter.post('', [
       resp.sendStatus(500);
     }
   }])
+
+
+// approve reimbursement expense
+reimbursementRouter.post('/changestatus', [
+  async (req, resp) => {
+    try {
+      const s = await reimbursementDao.changeReimbStatus(req.body);
+      resp.status(201);
+      resp.json(s);
+    } catch (err) {
+      console.log(err);
+      resp.sendStatus(500);
+    }
+  }])
+

@@ -58,3 +58,20 @@ export async function createReimbursement(reimbursement): Promise<number> {
     client.release();
   }
 }
+
+//update approve/deny a reimbursement
+export async function changeReimbStatus(reimbursement): Promise<number> {
+  const client = await connectionPool.connect();
+  try {
+    const resp = await client.query(
+      'UPDATE expense_reimbursement_system.ers_reimbursement SET reimb_resolver = $1, reimb_status_id = $2 WHERE reimb_id = $3 RETURNING reimb_id', 
+      [
+        reimbursement.reimbResolver,
+        reimbursement.reimbStatusId,
+        reimbursement.reimbId
+      ]);
+    return resp.rows[0].reimb_id;
+  } finally {
+    client.release();
+  }
+}
