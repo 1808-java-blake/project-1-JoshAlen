@@ -8,3 +8,4 @@ export const ersUserTypes = {
 export const statusFilterTypes = {
     GET_ACTIVE_TAB: 'GET_ACTIVE_TAB'
 }
+

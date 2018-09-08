@@ -49,6 +49,7 @@ class SignInComponent extends React.Component<IProps, {}> {
         console.log(err);
       });
   }
+  
   public passwordChange = (e: any) => {
     this.props.updatePassword(e.target.value);
   }

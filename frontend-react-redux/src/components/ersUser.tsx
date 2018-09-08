@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { FaCheck, FaTimes } from 'react-icons/fa';
 import { connect } from 'react-redux';
-import { createReimb,getUsersAndReimbs, getCurrentUserAndReimb, updateReimbStatus } from '../actions/ersUserActions';
+import { getUsersAndReimbs, getCurrentUserAndReimb, updateReimbStatus } from '../actions/ersUserActions';
 import { StatusFilter } from './statusFilter';
-import { toCurrency, formatTime } from '../utils';
+import { toCurrency, formatTime, stringTruncate } from '../utils';
 
 class ErsUser extends React.Component<any, any> {
 
@@ -18,12 +18,16 @@ class ErsUser extends React.Component<any, any> {
             this.props.getCurrentUserAndReimb(currentUser);
          }
 
+        public getReimbType = (index: number) => {
+            return "hello";
+        }
+
         public renderUsers = (): any => {
             return (this.props.users.length > 0) &&
                     this.props.users.map((u: any, index: number) => {
                     return (u.Reimbursement.length > 0) &&
                         <tr key={index}>
-                            <td>{u.ersUsersId}</td>
+                            <td>00{u.ersUsersId}</td>
                             <td>{u.ersUserFirstName}</td>
                             <td>{u.ersUserLastName}</td>
                             <td>{u.ersUserEmail}</td>
@@ -38,10 +42,15 @@ class ErsUser extends React.Component<any, any> {
             return (this.props.currentReimb.length > 0) &&
                     this.props.currentReimb.map((r: any, index: number) => {
                     return <tr key={index}>
-                                <td>{r.reimbId}</td>
+                                <td>0000{r.reimbId}</td>
                                 <td>${ toCurrency(r.reimbAmount) }</td>
                                 <td>{ formatTime(r.reimbSubmitted) }</td>
-                                <td>{r.reimbDescription}</td>
+                                
+                                <td>
+                                    {this.getReimbType(r.reimbTypeId)}
+                                </td>
+                                
+                                <td>{ stringTruncate(r.reimbDescription)}</td>
                                 <td>{this.printStatusBadge(r.reimbStatusId)}</td>
                                 <td className="text-center">
                                     <button value={index} name="1" className='btn btn-success btn-xs text-white mr-1' onClick={this.setStatus}>
@@ -107,8 +116,9 @@ class ErsUser extends React.Component<any, any> {
                                 <tr>
                                     <th>Reimb. ID</th>
                                     <th>Amount</th>
-                                    <th>Date Submitted</th>
-                                    <th>Description</th>
+                                    <th>Submitted</th>
+                                    <th>Type</th>
+                                    <th>Desc.</th>
                                     <th>Status</th>
                                     <th className="text-center">Action</th>
                                 </tr>
@@ -129,4 +139,4 @@ const mapStateToPros = (state: any) => ({
     users: state.user.users
 });
 
-export default connect(mapStateToPros, { createReimb,getUsersAndReimbs, getCurrentUserAndReimb, updateReimbStatus })(ErsUser);
+export default connect(mapStateToPros, { getUsersAndReimbs, getCurrentUserAndReimb, updateReimbStatus })(ErsUser);
