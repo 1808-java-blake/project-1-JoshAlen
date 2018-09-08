@@ -10,9 +10,8 @@ const initialState: any = {
 export const ersUserReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case ersUserTypes.CREATE_REIMB:
-      console.log("hit create reimb reducer")
       return state;
-
+      
     case ersUserTypes.GET_USER_AND_REIMB:
       return{
           ...state,

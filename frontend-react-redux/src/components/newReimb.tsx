@@ -7,7 +7,7 @@ export class NewReimb extends React.Component<any, any> {
         this.state = {
             amount: 0,
             description: '',
-            type: '4'
+            type: '0'
         }
     }
 
@@ -34,6 +34,7 @@ export class NewReimb extends React.Component<any, any> {
           })
           .then(resp => resp.json())
           .then(reimb => {
+              this.props.history.push('/expensereimbursements');
               console.log(reimb);
           })
           .catch(err => {
@@ -51,7 +52,6 @@ export class NewReimb extends React.Component<any, any> {
                     <div className="form-group">
                         <label>Expense Amount*</label>
                         <input type="number" name="amount" value={this.state.amount} onChange={this.onChange} className="form-control" required/>
-                        {/* <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small> */}
                     </div>
 
                     <div className="form-group">

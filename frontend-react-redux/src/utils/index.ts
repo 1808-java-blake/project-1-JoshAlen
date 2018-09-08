@@ -18,3 +18,4 @@ export const stringTruncate = (str: string): any => {
     }
     return str;
 }
+

@@ -19,7 +19,16 @@ class ErsUser extends React.Component<any, any> {
          }
 
         public getReimbType = (index: number) => {
-            return "hello";
+            switch(index){
+                case 0:
+                    return 'Lodging';
+                case 1:
+                    return 'Travel';
+                case 2: 
+                    return 'Food';
+                default:
+                return 'Other'
+            }
         }
 
         public renderUsers = (): any => {
@@ -42,14 +51,10 @@ class ErsUser extends React.Component<any, any> {
             return (this.props.currentReimb.length > 0) &&
                     this.props.currentReimb.map((r: any, index: number) => {
                     return <tr key={index}>
-                                <td>0000{r.reimbId}</td>
+                                <td>00{r.reimbId}</td>
                                 <td>${ toCurrency(r.reimbAmount) }</td>
                                 <td>{ formatTime(r.reimbSubmitted) }</td>
-                                
-                                <td>
-                                    {this.getReimbType(r.reimbTypeId)}
-                                </td>
-                                
+                                <td>{this.getReimbType(r.reimbTypeId)}</td>
                                 <td>{ stringTruncate(r.reimbDescription)}</td>
                                 <td>{this.printStatusBadge(r.reimbStatusId)}</td>
                                 <td className="text-center">

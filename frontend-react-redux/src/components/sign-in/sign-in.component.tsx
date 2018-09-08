@@ -84,7 +84,7 @@ class SignInComponent extends React.Component<IProps, {}> {
                   </label>
                   <button type="submit" className="btn btn-login float-right">Submit</button>
                 </div>
-                {errorMessage && <span id="error-message">{errorMessage}</span>}
+                {errorMessage && <span id="error-message" className="text-danger">{errorMessage}</span>}
               </form>
             </div>
             <div className="col-md-8 banner-sec">
