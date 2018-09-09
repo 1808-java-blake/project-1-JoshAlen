@@ -19,3 +19,6 @@ export const stringTruncate = (str: string): any => {
     return str;
 }
 
+export const logoutClearUp = () => {
+    localStorage.clear();
+}

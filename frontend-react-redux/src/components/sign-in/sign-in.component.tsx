@@ -5,6 +5,7 @@ import * as signInActions from '../../actions/sign-in/sign-in.actions';
 import { connect } from 'react-redux';
 
 interface IProps extends RouteComponentProps<{}>, ISignInState {
+  setLoginUser: (user: object) => any,
   updateError: (message: string) => any,
   updatePassword: (password: string) => any,
   updateUsername: (username: string) => any,
@@ -40,9 +41,7 @@ class SignInComponent extends React.Component<IProps, {}> {
       })
       .then(resp => {
         localStorage.setItem('user', JSON.stringify(resp));
-        localStorage.setItem('id', resp.ersUsersId);
-        localStorage.setItem('role', resp.ersUserRoleId);
-        localStorage.setItem('name', resp.ersUserFirstName + " " + resp.ersUserLastName);
+        this.props.setLoginUser(resp);
         this.props.history.push('/expensereimbursements');
       })
       .catch(err => {
@@ -118,6 +117,7 @@ class SignInComponent extends React.Component<IProps, {}> {
 
 const mapStateToProps = (state: IState) => (state.signIn);
 const mapDispatchToProps = {
+  setLoginUser: signInActions.setLoginUser,
   updateError: signInActions.updateError,
   updatePassword: signInActions.updatePassword,
   updateUsername: signInActions.updateUsername,

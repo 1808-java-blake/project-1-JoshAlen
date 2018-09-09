@@ -27,3 +27,10 @@ export const updateError = (errorMessage: string) => {
   }
 }
 
+export const setLoginUser = (signinUser: object) => {
+  return {
+    payload: {signinUser},
+    type: signInTypes.SET_LOGIN_USER
+  }
+}
+
