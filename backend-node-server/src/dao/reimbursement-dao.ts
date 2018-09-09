@@ -24,9 +24,9 @@ export async function findById(id: number): Promise<Reimbursement> {
   const client = await connectionPool.connect();
   try {
     const resp = await client.query('SELECT * FROM expense_reimbursement_system.ers_reimbursement WHERE reimb_id = $1', [id]);
-    let movie: SqlReimbursement = resp.rows[0];
-    if (movie !== undefined) {
-      return ersReimbursementConverter(movie);
+    let reimbursement: SqlReimbursement = resp.rows[0];
+    if (reimbursement !== undefined) {
+      return ersReimbursementConverter(reimbursement);
     } else {
       return undefined;
     }
@@ -37,7 +37,7 @@ export async function findById(id: number): Promise<Reimbursement> {
 
 // /**
 //  * Add a new reimbursement to the DB
-//  * @param movie 
+//  * @param reimbursement 
 //  */
 export async function createReimbursement(reimbursement): Promise<number> {
   const client = await connectionPool.connect();
