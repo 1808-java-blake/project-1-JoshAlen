@@ -113,6 +113,7 @@ class SignInComponent extends React.Component<IProps, {}> {
       </section>
     );
   }
+  
 }
 
 const mapStateToProps = (state: IState) => (state.signIn);

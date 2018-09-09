@@ -26,3 +26,16 @@ export const toUpperCaseFirstLetter = (str: string): string => {
 export const logoutClearUp = () => {
     localStorage.clear();
 }
+
+export const getReimbType = (index: number) => {
+    switch(index){
+        case 0:
+            return 'Lodging';
+        case 1:
+            return 'Travel';
+        case 2: 
+            return 'Food';
+        default:
+            return 'Other'
+    }
+}

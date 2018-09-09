@@ -3,7 +3,7 @@ import { FaCheck, FaTimes } from 'react-icons/fa';
 import { connect } from 'react-redux';
 import { getUsersAndReimbs, getCurrentUserAndReimb, updateReimbStatus } from '../actions/ersUserActions';
 import { StatusFilter } from './statusFilter';
-import { toCurrency, formatTime, stringTruncate } from '../utils';
+import { toCurrency, formatTime, stringTruncate, getReimbType } from '../utils';
 
 class ErsUser extends React.Component<any, any> {
 
@@ -17,19 +17,6 @@ class ErsUser extends React.Component<any, any> {
             const currentUser = this.props.users[i];
             this.props.getCurrentUserAndReimb(currentUser);
          }
-
-        public getReimbType = (index: number) => {
-            switch(index){
-                case 0:
-                    return 'Lodging';
-                case 1:
-                    return 'Travel';
-                case 2: 
-                    return 'Food';
-                default:
-                return 'Other'
-            }
-        }
 
         public renderUsers = (): any => {
             return (this.props.users.length > 0) &&
@@ -54,7 +41,7 @@ class ErsUser extends React.Component<any, any> {
                                 <td>00{r.reimbId}</td>
                                 <td>${ toCurrency(r.reimbAmount) }</td>
                                 <td>{ formatTime(r.reimbSubmitted) }</td>
-                                <td>{this.getReimbType(r.reimbTypeId)}</td>
+                                <td>{ getReimbType(r.reimbTypeId) }</td>
                                 <td>{ stringTruncate(r.reimbDescription)}</td>
                                 <td>{this.printStatusBadge(r.reimbStatusId)}</td>
                                 <td className="text-center">
@@ -73,7 +60,7 @@ class ErsUser extends React.Component<any, any> {
             e.preventDefault();
             const r = {
                 "reimbId": this.props.currentReimb[e.currentTarget.value].reimbId,
-                "reimbResolver": this.props.currentUser.ersUsersId,
+                "reimbResolver": this.props.reimbResolver,
                 "reimbStatusId": Number(e.currentTarget.name)
               }
 
@@ -141,6 +128,7 @@ class ErsUser extends React.Component<any, any> {
 const mapStateToPros = (state: any) => ({
     currentReimb: state.user.currentReimb,
     currentUser: state.user.currentUser,
+    reimbResolver: state.signIn.signinUser.ersUsersId,
     users: state.user.users
 });
 
