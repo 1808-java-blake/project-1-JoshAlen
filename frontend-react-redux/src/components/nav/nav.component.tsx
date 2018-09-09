@@ -4,8 +4,17 @@ import RevLogo from '../../assets/rev-logo.png';
 import { IState } from '../../reducers';
 import { connect } from 'react-redux';
 import { FaUser, FaPencilAlt, FaMoneyBill } from 'react-icons/fa';
+import * as signInActions from '../../actions/sign-in/sign-in.actions';
+import { toUpperCaseFirstLetter } from '../../utils';
 
 class AppNav extends React.Component<any, any> {
+
+  public onClick = (e: any) => {
+    console.log(e.target);
+    this.props.setLoginUser({});
+    this.props.updateUsername('');
+    this.props.updatePassword('');
+  }
 
   public renderLoginLinks = ():any => {
       return ( 
@@ -19,11 +28,11 @@ class AppNav extends React.Component<any, any> {
          <li className="nav-item dropdown">
            
            <a className="nav-link dropdown-toggle pointer" id="examples-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-           <FaUser/> {this.props.signinUser.ersUserFirstName + ' ' + this.props.signinUser.ersUserLastName}
+           <FaUser/> { toUpperCaseFirstLetter(this.props.signinUser.ersUserFirstName) + ' ' + toUpperCaseFirstLetter( this.props.signinUser.ersUserLastName )}
            </a>
            
            <div className="dropdown-menu" aria-labelledby="examples-dropdown">
-             <div className="dropdown-item"><Link to="/login" className="unset-anchor nav-link">Logout</Link></div>
+             <div className="dropdown-item"><Link to="/login" onClick={this.onClick} className="unset-anchor nav-link">Logout</Link></div>
            </div>
          </li>
       </ul> )
@@ -51,4 +60,13 @@ class AppNav extends React.Component<any, any> {
 }
 
 const mapStateToProps = (state: IState) => (state.signIn)
-export default connect(mapStateToProps)(AppNav);
+const mapDispatchToProps = {
+
+  setLoginUser: signInActions.setLoginUser,
+  updateError: signInActions.updateError,
+  updatePassword: signInActions.updatePassword,
+  updateUsername: signInActions.updateUsername
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppNav);
