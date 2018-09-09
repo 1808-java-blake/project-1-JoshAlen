@@ -3,7 +3,6 @@ import { ersUserTypes } from '../actions/types';
 const initialState: any = {
     currentReimb: [],
     currentUser: {},
-    filterBy: 0,
     users: []
 }
 

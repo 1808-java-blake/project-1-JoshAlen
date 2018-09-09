@@ -2,7 +2,7 @@ import * as React from 'react';
 import { FaCheck, FaTimes } from 'react-icons/fa';
 import { connect } from 'react-redux';
 import { getUsersAndReimbs, getCurrentUserAndReimb, updateReimbStatus } from '../actions/ersUserActions';
-import { StatusFilter } from './statusFilter';
+import StatusFilter from './statusFilter';
 import { toCurrency, formatTime, stringTruncate, getReimbType, filterReimb } from '../utils';
 import { Link } from 'react-router-dom';
 
@@ -22,7 +22,7 @@ class ErsUser extends React.Component<any, any> {
     public renderUsers = (): any => {
         return (this.props.users.length > 0) &&
             this.props.users.map((u: any, index: number) => {
-                return (u.Reimbursement.length > 0) && filterReimb(u.Reimbursement, 1) &&
+                return (u.Reimbursement.length > 0) && filterReimb(u.Reimbursement, this.props.filterBy) &&
                     <tr key={index}>
                         <td>00{u.ersUsersId}</td>
                         <td>{u.ersUserFirstName}</td>
@@ -38,7 +38,7 @@ class ErsUser extends React.Component<any, any> {
     public renderReimb = (): any => {
         return (this.props.currentReimb.length > 0) &&
             this.props.currentReimb.map((r: any, index: number) => {
-                return <tr key={index} className={ (r.reimbStatusId === 1) ? '' : 'd-none'}>
+                return <tr key={index} className={(r.reimbStatusId === this.props.filterBy) ? '' : 'd-none'}>
                     <td>00{r.reimbId}</td>
                     <td>${toCurrency(r.reimbAmount)}</td>
                     <td>{formatTime(r.reimbSubmitted)}</td>
@@ -82,8 +82,8 @@ class ErsUser extends React.Component<any, any> {
     }
 
     public authUser = (): any => {
-        if(this.props.signinUser.ersUsersId){
-         return <div className="container-fluid">
+        if (this.props.signinUser.ersUsersId) {
+            return <div className="container-fluid">
                 <div className="row mb-3">
                     <div className="container-fluid">
                         <StatusFilter />
@@ -135,6 +135,7 @@ class ErsUser extends React.Component<any, any> {
 const mapStateToPros = (state: any) => ({
     currentReimb: state.user.currentReimb,
     currentUser: state.user.currentUser,
+    filterBy: state.filter.filterBy,
     signinUser: state.signIn.signinUser,
     users: state.user.users
 });
