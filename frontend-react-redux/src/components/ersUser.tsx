@@ -2,6 +2,7 @@ import * as React from 'react';
 import { FaCheck, FaTimes } from 'react-icons/fa';
 import { connect } from 'react-redux';
 import { getUsersAndReimbs, getCurrentUserAndReimb, updateReimbStatus } from '../actions/ersUserActions';
+import { setLoginUser } from '../actions/sign-in/sign-in.actions';
 import StatusFilter from './statusFilter';
 import { toCurrency, formatTime, stringTruncate, getReimbType, filterReimb } from '../utils';
 import { Link } from 'react-router-dom';
@@ -9,7 +10,27 @@ import { Link } from 'react-router-dom';
 class ErsUser extends React.Component<any, any> {
 
     public componentDidMount() {
-        this.props.getUsersAndReimbs();
+        if (this.props.signinUser.ersUserRoleId === 2) {
+            this.props.getUsersAndReimbs();
+        } else {
+            this.fetchSigninUserReimb(this.props.signinUser.ersUsersId);
+        }
+    }
+
+    public fetchSigninUserReimb = (id: number): any => {
+        fetch(`http://localhost:9001/users/${id}`, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'GET'
+        })
+            .then(resp => resp.json())
+            .then(resp => {
+                this.props.setLoginUser(resp);
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     public getViewBtnClickIndex = (e: any) => {
@@ -81,55 +102,104 @@ class ErsUser extends React.Component<any, any> {
         }
     }
 
-    public authUser = (): any => {
-        if (this.props.signinUser.ersUsersId) {
-            return <div className="container-fluid">
-                <div className="row mb-3">
-                    <div className="container-fluid">
-                        <StatusFilter />
-                    </div>
-                </div>
-
-                <div className="row">
-                    <table className="table table-striped custab col-md-5 custyle m-2">
-                        <thead>
-                            <tr>
-                                <th>Emp. ID</th>
-                                <th>Firstname</th>
-                                <th>Lastname</th>
-                                <th>Email</th>
-                                <th className="text-center">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.renderUsers()}
-                        </tbody>
-                    </table>
-                    <table className="table table-striped custab col-md-6 custyle m-2">
-                        <thead>
-                            <tr>
-                                <th>Reimb. ID</th>
-                                <th>Amount</th>
-                                <th>Submitted</th>
-                                <th>Type</th>
-                                <th>Desc.</th>
-                                <th>Status</th>
-                                <th className="text-center">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.renderReimb()}
-                        </tbody>
-                    </table>
+    public renderFinanceManagerPage = (): any => {
+        return <div className="container-fluid">
+            <div className="row mb-3">
+                <div className="container-fluid">
+                    <StatusFilter />
                 </div>
             </div>
+
+            <div className="row">
+                <table className="table table-striped custab col-md-5 custyle m-2">
+                    <thead>
+                        <tr>
+                            <th>Emp. ID</th>
+                            <th>Firstname</th>
+                            <th>Lastname</th>
+                            <th>Email</th>
+                            <th className="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.renderUsers()}
+                    </tbody>
+                </table>
+                <table className="table table-striped custab col-md-6 custyle m-2">
+                    <thead>
+                        <tr>
+                            <th>Reimb. ID</th>
+                            <th>Amount</th>
+                            <th>Submitted</th>
+                            <th>Type</th>
+                            <th>Desc.</th>
+                            <th>Status</th>
+                            <th className="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.renderReimb()}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+
+    public renderEmployeePage = (): any => {
+        return <div className="container-fluid">
+            <div className="row mb-3">
+                <div className="container-fluid">
+                    <StatusFilter />
+                </div>
+            </div>
+            <div className="row">
+                <table className="table table-striped custab col-md-10 custyle m-2">
+                    <thead>
+                        <tr>
+                            <th>Reimb. ID</th>
+                            <th>Amount</th>
+                            <th>Submitted</th>
+                            <th>Resolved</th>
+                            <th>Resolver</th>
+                            <th>Type</th>
+                            <th>Desc.</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {(this.props.signinUser.Reimbursement.length > 0) &&
+                            this.props.signinUser.Reimbursement.map((r: any, index: number) => {
+                                return <tr key={index} className={(r.reimbStatusId === this.props.filterBy) ? '' : 'd-none'}>
+                                    <td>00{r.reimbId}</td>
+                                    <td>${toCurrency(r.reimbAmount)}</td>
+                                    <td>{formatTime(r.reimbSubmitted)}</td>
+                                    <td>{formatTime(r.reimbResolved)}</td>
+                                    <td>{r.reimbResolver}</td>
+                                    <td>{getReimbType(r.reimbTypeId)}</td>
+                                    <td>{stringTruncate(r.reimbDescription)}</td>
+                                    <td>{this.printStatusBadge(r.reimbStatusId)}</td>
+                                </tr>
+                            })}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+
+    public authUser = (): any => {
+        if (this.props.signinUser.ersUserRoleId === 2) {
+            return this.renderFinanceManagerPage();
+        } else if (this.props.signinUser.ersUserRoleId === 1) {
+            return this.renderEmployeePage();
+        } else {
+            return <div>Nothing is here... <Link to='/login' className="btn btn-primary"> Home </Link></div>
         }
-        return <div>Nothing is here... <Link to='/login' className="btn btn-primary"> Home </Link></div>
     }
 
     public render() {
         return (this.authUser())
     }
+
 }
 
 const mapStateToPros = (state: any) => ({
@@ -140,4 +210,4 @@ const mapStateToPros = (state: any) => ({
     users: state.user.users
 });
 
-export default connect(mapStateToPros, { getUsersAndReimbs, getCurrentUserAndReimb, updateReimbStatus })(ErsUser);
+export default connect(mapStateToPros, { getUsersAndReimbs, getCurrentUserAndReimb, updateReimbStatus, setLoginUser })(ErsUser);

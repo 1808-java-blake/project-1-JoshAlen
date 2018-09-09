@@ -41,6 +41,7 @@ class SignInComponent extends React.Component<IProps, {}> {
       })
       .then(resp => {
         localStorage.setItem('user', JSON.stringify(resp));
+        localStorage.setItem('id', resp.ersUsersId);
         this.props.setLoginUser(resp);
         this.props.history.push('/expensereimbursements');
       })
@@ -48,7 +49,7 @@ class SignInComponent extends React.Component<IProps, {}> {
         console.log(err);
       });
   }
-  
+
   public passwordChange = (e: any) => {
     this.props.updatePassword(e.target.value);
   }

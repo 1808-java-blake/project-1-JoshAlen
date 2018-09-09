@@ -1,15 +1,15 @@
 import { ersUserTypes } from './types';
 
-export const getUsersAndReimbs = () => (dispatch :any) => {
+export const getUsersAndReimbs = () => (dispatch: any) => {
     fetch('http://localhost:9001/users')
-    .then(resp => resp.json())
-    .then(users => dispatch({
-        payload: users,
-        type: ersUserTypes.GET_USER_AND_REIMB
-    }))
-    .catch(err => {
-        console.log(err);
-    }) 
+        .then(resp => resp.json())
+        .then(users => dispatch({
+            payload: users,
+            type: ersUserTypes.GET_USER_AND_REIMB
+        }))
+        .catch(err => {
+            console.log(err);
+        })
 }
 
 export const getCurrentUserAndReimb = (user: any) => (dispatch: any) => {
@@ -23,36 +23,37 @@ export const updateReimbStatus = (user: any, i: number, newStatusId: number) => 
     fetch('http://localhost:9001/reimbursements/changestatus', {
         body: JSON.stringify(user),
         headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
         },
         method: 'POST'
-      })
-      .then(resp => resp.json())
-      .then(u => dispatch({
-          payload: {i, u, newStatusId},
-          type: ersUserTypes.UPDATE_REIMB_STATUS
-      }))
-      .catch(err => {
-        console.log(err);
-      });
+    })
+        .then(resp => resp.json())
+        .then(u => dispatch({
+            payload: { i, u, newStatusId },
+            type: ersUserTypes.UPDATE_REIMB_STATUS
+        }))
+        .catch(err => {
+            console.log(err);
+        });
 }
 
 export const createReimb = (r: any) => (dispatch: any) => {
     fetch('http://localhost:9001/reimbursements', {
         body: JSON.stringify(r),
         headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
         },
         method: 'POST'
-      })
-      .then(resp => resp.json())
-      .then(reimb => dispatch({
-          payload: reimb,
-          type: ersUserTypes.CREATE_REIMB
-      }))
-      .catch(err => {
-        console.log(err);
-      });
+    })
+        .then(resp => resp.json())
+        .then(reimb => dispatch({
+            payload: reimb,
+            type: ersUserTypes.CREATE_REIMB
+        }))
+        .catch(err => {
+            console.log(err);
+        });
 }
+

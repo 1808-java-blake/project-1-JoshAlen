@@ -2,7 +2,7 @@ import * as React from 'react';
 
 export class NewReimb extends React.Component<any, any> {
 
-    constructor(props: any){
+    constructor(props: any) {
         super(props);
         this.state = {
             amount: 0,
@@ -12,7 +12,7 @@ export class NewReimb extends React.Component<any, any> {
     }
 
     public onChange = (e: any) => {
-        this.setState({[e.target.name]: e.target.value})
+        this.setState({ [e.target.name]: e.target.value })
         console.log(e.target.value)
     }
 
@@ -27,31 +27,31 @@ export class NewReimb extends React.Component<any, any> {
         fetch('http://localhost:9001/reimbursements', {
             body: JSON.stringify(r),
             headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
             },
             method: 'POST'
-          })
-          .then(resp => resp.json())
-          .then(reimb => {
-              this.props.history.push('/expensereimbursements');
-              console.log(reimb);
-          })
-          .catch(err => {
-              console.log(err);
-          });
+        })
+            .then(resp => resp.json())
+            .then(reimb => {
+                this.props.history.push('/expensereimbursements');
+                console.log(reimb);
+            })
+            .catch(err => {
+                console.log(err);
+            });
 
     }
 
-    public render(): any{
+    public render(): any {
         return (
             <div>
                 <h2>New Expense Reimbursement</h2>
-                <hr/>
+                <hr />
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>Expense Amount*</label>
-                        <input type="number" name="amount" value={this.state.amount} onChange={this.onChange} className="form-control" required/>
+                        <input type="number" name="amount" value={this.state.amount} onChange={this.onChange} className="form-control" required />
                     </div>
 
                     <div className="form-group">
@@ -64,20 +64,20 @@ export class NewReimb extends React.Component<any, any> {
                         </select>
                     </div>
 
-                <div className="form-group">
-                    <label>Expense Description*</label>
-                    <textarea className="form-control" name="description" value={this.state.description} onChange={this.onChange} rows={3} required />
-                </div>
-                
-                <div className="form-group">
-                    <label htmlFor="exampleInputFile">Expense Receipt</label>
-                    <input type="file" className="form-control-file" id="expenseReceipt" aria-describedby="fileHelp"/>
-                    <small id="fileHelp" className="form-text text-muted">for faster expense reimbursement, please submit your expense receipt either a scan or photocopy of the receipt.</small>
-                </div>
-                
-                <button type="submit" className="btn btn-default text-white btn-block float-right">Submit</button>
-            </form>
-          </div>
+                    <div className="form-group">
+                        <label>Expense Description*</label>
+                        <textarea className="form-control" name="description" value={this.state.description} onChange={this.onChange} rows={3} required />
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="exampleInputFile">Expense Receipt</label>
+                        <input type="file" className="form-control-file" id="expenseReceipt" aria-describedby="fileHelp" />
+                        <small id="fileHelp" className="form-text text-muted">for faster expense reimbursement, please submit your expense receipt either a scan or photocopy of the receipt.</small>
+                    </div>
+
+                    <button type="submit" className="btn btn-default text-white btn-block float-right">Submit</button>
+                </form>
+            </div>
         )
     }
 }
