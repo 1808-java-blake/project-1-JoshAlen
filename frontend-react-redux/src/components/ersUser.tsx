@@ -22,7 +22,7 @@ class ErsUser extends React.Component<any, any> {
     public renderUsers = (): any => {
         return (this.props.users.length > 0) &&
             this.props.users.map((u: any, index: number) => {
-                return (u.Reimbursement.length > 0) && filterReimb(u.Reimbursement, 2) &&
+                return (u.Reimbursement.length > 0) && filterReimb(u.Reimbursement, 1) &&
                     <tr key={index}>
                         <td>00{u.ersUsersId}</td>
                         <td>{u.ersUserFirstName}</td>
@@ -38,7 +38,7 @@ class ErsUser extends React.Component<any, any> {
     public renderReimb = (): any => {
         return (this.props.currentReimb.length > 0) &&
             this.props.currentReimb.map((r: any, index: number) => {
-                return <tr key={index}>
+                return <tr key={index} className={ (r.reimbStatusId === 1) ? '' : 'd-none'}>
                     <td>00{r.reimbId}</td>
                     <td>${toCurrency(r.reimbAmount)}</td>
                     <td>{formatTime(r.reimbSubmitted)}</td>
