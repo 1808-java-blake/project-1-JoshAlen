@@ -159,8 +159,8 @@ class ErsUser extends React.Component<any, any> {
                             <th>Reimb. ID</th>
                             <th>Amount</th>
                             <th>Submitted</th>
-                            <th>Resolved</th>
-                            <th>Resolver</th>
+                            {/* <th>Resolved</th>
+                            <th>Resolver</th> */}
                             <th>Type</th>
                             <th>Desc.</th>
                             <th>Status</th>
@@ -173,8 +173,8 @@ class ErsUser extends React.Component<any, any> {
                                     <td>00{r.reimbId}</td>
                                     <td>${toCurrency(r.reimbAmount)}</td>
                                     <td>{formatTime(r.reimbSubmitted)}</td>
-                                    <td>{formatTime(r.reimbResolved)}</td>
-                                    <td>{r.reimbResolver}</td>
+                                    {/* <td>{formatTime(r.reimbResolved)}</td>
+                                    <td>{r.reimbResolver}</td> */}
                                     <td>{getReimbType(r.reimbTypeId)}</td>
                                     <td>{stringTruncate(r.reimbDescription)}</td>
                                     <td>{this.printStatusBadge(r.reimbStatusId)}</td>
