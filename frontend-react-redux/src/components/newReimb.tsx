@@ -24,7 +24,7 @@ export class NewReimb extends React.Component<any, any> {
             "reimbDescription": this.state.description,
             "reimbTypeId": Number(this.state.type)
         }
-        fetch('http://localhost:9001/reimbursements', {
+        fetch('http://ec2-18-191-35-25.us-east-2.compute.amazonaws.com:3000/reimbursements', {
             body: JSON.stringify(r),
             headers: {
                 'Accept': 'application/json',

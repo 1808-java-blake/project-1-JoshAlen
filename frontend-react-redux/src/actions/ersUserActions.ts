@@ -1,7 +1,7 @@
 import { ersUserTypes } from './types';
 
 export const getUsersAndReimbs = () => (dispatch: any) => {
-    fetch('http://localhost:9001/users')
+    fetch('http://ec2-18-191-35-25.us-east-2.compute.amazonaws.com:3000/users')
         .then(resp => resp.json())
         .then(users => dispatch({
             payload: users,
@@ -20,7 +20,7 @@ export const getCurrentUserAndReimb = (user: any) => (dispatch: any) => {
 }
 
 export const updateReimbStatus = (user: any, i: number, newStatusId: number) => (dispatch: any) => {
-    fetch('http://localhost:9001/reimbursements/changestatus', {
+    fetch('http://ec2-18-191-35-25.us-east-2.compute.amazonaws.com:3000/reimbursements/changestatus', {
         body: JSON.stringify(user),
         headers: {
             'Accept': 'application/json',
@@ -39,7 +39,7 @@ export const updateReimbStatus = (user: any, i: number, newStatusId: number) => 
 }
 
 export const createReimb = (r: any) => (dispatch: any) => {
-    fetch('http://localhost:9001/reimbursements', {
+    fetch('http://ec2-18-191-35-25.us-east-2.compute.amazonaws.com:3000/reimbursements', {
         body: JSON.stringify(r),
         headers: {
             'Accept': 'application/json',

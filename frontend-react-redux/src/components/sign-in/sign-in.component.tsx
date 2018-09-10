@@ -20,7 +20,7 @@ class SignInComponent extends React.Component<IProps, {}> {
 
   public submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    fetch('http://localhost:9001/users/login', {
+    fetch('http://ec2-18-191-35-25.us-east-2.compute.amazonaws.com:3000/users/login', {
       body: JSON.stringify(this.props.credentials),
       credentials: 'include',
       headers: {

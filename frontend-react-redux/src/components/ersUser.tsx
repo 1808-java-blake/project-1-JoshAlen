@@ -18,7 +18,7 @@ class ErsUser extends React.Component<any, any> {
     }
 
     public fetchSigninUserReimb = (id: number): any => {
-        fetch(`http://localhost:9001/users/${id}`, {
+        fetch(`http://ec2-18-191-35-25.us-east-2.compute.amazonaws.com:3000/users/${id}`, {
             headers: {
                 'Content-Type': 'application/json',
             },
